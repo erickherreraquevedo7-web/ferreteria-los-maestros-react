@@ -1,34 +1,41 @@
-import Boton from "./components/atoms/Boton";
-import Precio from "./components/atoms/Precio";
-import EtiquetaStock from "./components/atoms/EtiquetaStock";
+import { useState } from "react";
+import CampoTexto from "./components/atoms/CampoTexto.jsx";
+import Selector from "./components/atoms/Selector.jsx";
+import ContadorCantidad from "./components/atoms/ContadorCantidad.jsx";
 
 function App() {
+    const [nombre, setNombre] = useState("");
+    const [categoria, setCategoria] = useState("");
 
-    function agregarProducto() {
-        alert("Producto agregado al carrito");
-    }
+    const categorias = [
+        { valor: "materiales", texto: "Materiales de construcción" },
+        { valor: "pinturas", texto: "Pinturas" },
+        { valor: "herramientas", texto: "Herramientas" }
+    ];
 
     return (
         <main className="container mt-4">
-            <h1>Ferretería Los Maestros</h1>
+            <h1>Prueba de átomos</h1>
 
-            <section className="mt-4">
-                <h2>Prueba de componentes</h2>
+            <CampoTexto
+                etiqueta="Nombre"
+                nombre="nombre"
+                valor={nombre}
+                onChange={(evento) => setNombre(evento.target.value)}
+                placeholder="Ingrese su nombre"
+            />
 
-                <Precio valor={5990} />
+            <Selector
+                etiqueta="Categoría"
+                nombre="categoria"
+                valor={categoria}
+                opciones={categorias}
+                onChange={(evento) => setCategoria(evento.target.value)}
+            />
 
-                <EtiquetaStock
-                    stock={5}
-                    stockMinimo={10}
-                />
+            <h2 className="mt-4">Cantidad</h2>
 
-                <br />
-
-                <Boton
-                    texto="Agregar al carrito"
-                    onClick={agregarProducto}
-                />
-            </section>
+            <ContadorCantidad />
         </main>
     );
 }
